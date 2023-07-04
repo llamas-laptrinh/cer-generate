@@ -2,10 +2,15 @@
 
 a tool help generate certification
 
-# Mockup
-![''](./Desktop.png)
+# document
+- Only devlop main function
+- Work well on chrome and safari
+
+<!-- # Mockup
+!['design'](./Desktop.png) -->
 
 # Demo
+!['demo'](./Desktop.png)
 # Resource
 
 https://codepen.io/yguo/pen/OyYGxQ
