@@ -33,7 +33,6 @@ export default function SignatureForm({ setSrc }: SignatureFormProps) {
   function saveSignature() {
     const dataUrl = canvasRef.current.toDataURL();
     setSrc(dataUrl);
-    console.log("dataUrl", dataUrl);
   }
   React.useEffect(() => {
     // const image = new Image();

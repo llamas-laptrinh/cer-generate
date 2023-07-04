@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Button from "@/components/Button";
 import ConfigForm from "@/components/ConfigForm";
 import DesignView from "@/components/DesignView";
 import Section from "@/components/Section";
@@ -12,26 +11,41 @@ import imgSrc from "../public/images/test.jpg";
 const products = [
   {
     id: 1,
-    name: "Basic Tee",
-    href: "#",
     imageSrc: imgSrc,
     imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
   },
 ];
+const defaultBorderSrc =
+  "https://previews.123rf.com/images/oliska/oliska1511/oliska151100002/48798490-certificate-borders-and-template.jpg";
 
 export default function Home() {
   const [signatureSrc, setSignatureSrc] = React.useState("");
+  const [userName, setUserName] = React.useState("");
+  const [borderSrc, setBorderSrc] = React.useState(defaultBorderSrc);
+  const [results, setResults] = React.useState<any[]>([]);
+
+  const onGenerate = (url: string) => {
+    const cloneResult = [...results];
+    cloneResult.push({
+      imageSrc: url,
+      imageAlt: "Front of men's Basic Tee in black.",
+    });
+    setResults(cloneResult);
+  };
   return (
-    <main className="flex min-h-screen flex-col px-36 py-4">
+    <main className="flex min-h-screen flex-col px-48 py-4">
       <div
         style={{ justifyContent: "space-between" }}
         className="flex xs:flex-col "
       >
-        <div className="mr-4">
+        <div>
           <Section labelText="Design View">
-            <DesignView signatureSrc={signatureSrc} />
+            <DesignView
+              onGenerateClick={onGenerate}
+              borderSrc={borderSrc}
+              signatureSrc={signatureSrc}
+              userName={userName}
+            />
           </Section>
           <Section labelText="Signature Form">
             <SignatureForm setSrc={(src) => setSignatureSrc(src)} />
@@ -39,7 +53,12 @@ export default function Home() {
         </div>
         <div>
           <Section labelText="Cover Image">
-            <UploadImage />
+            <UploadImage
+              setBorderSrc={(src) => {
+                console.log("Uploading", src);
+                setBorderSrc(src);
+              }}
+            />
           </Section>
           <Section labelText="Cover Image Size">
             <ConfigForm placeHolder1="width" placeHolder2="height" />
@@ -50,16 +69,19 @@ export default function Home() {
           <Section labelText="Font of names">
             <ConfigForm placeHolder1="font size" placeHolder2="font family" />
           </Section>
+          <Section labelText="Names Position">
+            <ConfigForm placeHolder1="x" placeHolder2="y" />
+          </Section>
           <Section labelText="List of names">
             <textarea
-              className="w-full border border-solid border-gray-900/25 rounded"
+              onChange={(e) => setUserName(e.target.value)}
+              className="w-full p-2 border border-solid border-gray-900/25 rounded"
               rows={10}
-            ></textarea>
+            />
           </Section>
-          <Button title="Generate" />
         </div>
       </div>
-      <ShowCer data={products} />
+      <ShowCer data={results} />
     </main>
   );
 }

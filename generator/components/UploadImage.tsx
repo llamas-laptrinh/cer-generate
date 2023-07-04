@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function UploadImageSection() {
+export default function UploadImageSection({
+  setBorderSrc = (src: string) => {},
+}) {
   return (
     <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-8">
       <div className="text-center">
@@ -27,6 +29,9 @@ export default function UploadImageSection() {
               name="file-upload"
               type="file"
               className="sr-only"
+              onChange={(e) => {
+                setBorderSrc(e.target.value);
+              }}
             />
           </label>
           <p className="pl-1">or drag and drop</p>

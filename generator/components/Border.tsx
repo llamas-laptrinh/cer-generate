@@ -6,7 +6,7 @@ type BorderProps = {
 
 export default function Border({ children }: BorderProps) {
   return (
-    <div className="mt-2 flex justify-center rounded-lg border border-solid border-gray-900/25 px-4 py-4">
+    <div className="my-2 flex justify-center rounded-lg border border-solid border-gray-900/25 px-4 py-4">
       {children}
     </div>
   );
